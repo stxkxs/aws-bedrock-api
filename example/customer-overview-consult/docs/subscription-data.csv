@@ -1,0 +1,11 @@
+customer_id,company_name,subscription_plan,monthly_cost,start_date,renewal_date,payment_method,status,discount_applied,primary_cloud,monthly_cloud_spend,queries_monthly,data_processed_tb
+CUST-10045,Mayo Clinic,Enterprise,125000,2022-07-15,2025-07-15,ACH,Active,0.15,AWS,785000,28500000,1800
+CUST-23876,Goldman Sachs,Enterprise Premium,450000,2022-02-01,2026-02-01,Wire Transfer,Active,0.18,AWS,3950000,145000000,7500
+CUST-45621,Lyft,Enterprise,95000,2023-01-10,2025-01-10,Credit Card,Active,0.12,AWS,680000,58000000,3800
+CUST-78943,Coursera,Enterprise,68000,2023-09-05,2025-09-05,ACH,Active,0.08,GCP,310000,18900000,950
+CUST-61234,Wayfair,Enterprise,150000,2022-11-18,2025-11-18,ACH,Active,0.12,AWS,860000,42000000,2100
+CUST-92567,Moderna,Enterprise Premium,185000,2023-05-22,2025-05-22,Wire Transfer,Active,0.15,Azure,1250000,65000000,3200
+CUST-33781,Airbnb,Enterprise,120000,2023-03-15,2026-03-15,Credit Card,Active,0.10,AWS,920000,75000000,2800
+CUST-54129,Stripe,Enterprise,135000,2023-08-15,2026-08-15,ACH,Active,0.12,AWS,1050000,82000000,3500
+CUST-67890,UnitedHealth Group,Enterprise Premium,380000,2022-08-10,2025-08-10,Wire Transfer,Active,0.20,AWS,2750000,110000000,5800
+CUST-12345,Spotify,Enterprise,110000,2023-05-12,2026-05-12,ACH,Active,0.10,GCP,920000,65000000,2400
