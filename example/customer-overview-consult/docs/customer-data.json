@@ -1,0 +1,808 @@
+{
+  "customers": [
+    {
+      "customer_id": "CUST-10045",
+      "company_name": "Mayo Clinic",
+      "industry": "Healthcare",
+      "company_size": "Enterprise",
+      "annual_revenue": "$15.7B",
+      "founded_year": 1864,
+      "headquarters": {
+        "address": "200 First Street SW",
+        "city": "Rochester",
+        "state": "MN",
+        "zip": "55905",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Sarah Johnson",
+        "title": "Chief Analytics Officer",
+        "email": "johnson.sarah@example-mayo.com",
+        "phone": "507-555-9087"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 125000,
+        "start_date": "2022-07-15",
+        "renewal_date": "2025-07-15",
+        "payment_method": "ACH",
+        "status": "Active",
+        "discount_applied": 0.15
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["Azure"],
+        "monthly_cloud_spend": 785000,
+        "resources": {
+          "compute": {
+            "clusters": 45,
+            "average_nodes_per_cluster": 8,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 24
+          },
+          "storage": {
+            "delta_lake_storage_tb": 850,
+            "external_tables_tb": 1200
+          },
+          "workloads": {
+            "etl_jobs": 175,
+            "ml_models_in_production": 38,
+            "bi_dashboards": 95
+          },
+          "integrations": {
+            "connected_data_sources": 28,
+            "downstream_applications": 16
+          }
+        },
+        "compliance_requirements": ["HIPAA", "SOC2", "GDPR", "HITRUST"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 28500000,
+        "data_processed_tb": 1800,
+        "avg_query_time_ms": 435,
+        "peak_concurrent_jobs": 380,
+        "monthly_active_users": 850
+      },
+      "support_history": {
+        "tickets_opened_ytd": 48,
+        "avg_resolution_time_hours": 4.5,
+        "satisfaction_score": 4.7,
+        "enterprise_support_level": "Premium"
+      },
+      "growth_potential": "High",
+      "churn_risk": "Low",
+      "use_cases": [
+        "Clinical data analytics",
+        "Patient outcome prediction",
+        "Genomics research",
+        "Medical imaging analysis",
+        "Healthcare operational analytics"
+      ]
+    },
+    {
+      "customer_id": "CUST-23876",
+      "company_name": "Goldman Sachs",
+      "industry": "Financial Services",
+      "company_size": "Enterprise",
+      "annual_revenue": "$48.3B",
+      "founded_year": 1869,
+      "headquarters": {
+        "address": "200 West Street",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10282",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Michael Chen",
+        "title": "VP of Data Engineering",
+        "email": "michael.chen@example-gs.com",
+        "phone": "212-555-3344"
+      },
+      "subscription": {
+        "plan": "Enterprise Premium",
+        "monthly_cost": 450000,
+        "start_date": "2022-02-01",
+        "renewal_date": "2026-02-01",
+        "payment_method": "Wire Transfer",
+        "status": "Active",
+        "discount_applied": 0.18
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["Private Cloud"],
+        "monthly_cloud_spend": 3950000,
+        "resources": {
+          "compute": {
+            "clusters": 180,
+            "average_nodes_per_cluster": 12,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 86
+          },
+          "storage": {
+            "delta_lake_storage_tb": 3400,
+            "external_tables_tb": 8500
+          },
+          "workloads": {
+            "etl_jobs": 680,
+            "ml_models_in_production": 145,
+            "bi_dashboards": 320
+          },
+          "integrations": {
+            "connected_data_sources": 68,
+            "downstream_applications": 42
+          }
+        },
+        "compliance_requirements": ["PCI-DSS", "SOC1", "SOC2", "GDPR", "ISO 27001", "NYDFS", "FINRA"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 145000000,
+        "data_processed_tb": 7500,
+        "avg_query_time_ms": 320,
+        "peak_concurrent_jobs": 850,
+        "monthly_active_users": 2800
+      },
+      "support_history": {
+        "tickets_opened_ytd": 95,
+        "avg_resolution_time_hours": 2.8,
+        "satisfaction_score": 4.5,
+        "enterprise_support_level": "Premium Plus"
+      },
+      "growth_potential": "Medium",
+      "churn_risk": "Very Low",
+      "use_cases": [
+        "Risk management",
+        "Algorithmic trading",
+        "Fraud detection",
+        "Investment analytics",
+        "Customer intelligence",
+        "Regulatory compliance"
+      ]
+    },
+    {
+      "customer_id": "CUST-45621",
+      "company_name": "Lyft",
+      "industry": "Transportation Technology",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$4.1B",
+      "founded_year": 2012,
+      "headquarters": {
+        "address": "185 Berry Street",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94107",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Alicia Chen",
+        "title": "Director of Data Science",
+        "email": "alicia.chen@example-lyft.com",
+        "phone": "415-555-7712"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 95000,
+        "start_date": "2023-01-10",
+        "renewal_date": "2025-01-10",
+        "payment_method": "Credit Card",
+        "status": "Active",
+        "discount_applied": 0.12
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["GCP"],
+        "monthly_cloud_spend": 680000,
+        "resources": {
+          "compute": {
+            "clusters": 65,
+            "average_nodes_per_cluster": 10,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 32
+          },
+          "storage": {
+            "delta_lake_storage_tb": 950,
+            "external_tables_tb": 2800
+          },
+          "workloads": {
+            "etl_jobs": 320,
+            "ml_models_in_production": 75,
+            "bi_dashboards": 140
+          },
+          "integrations": {
+            "connected_data_sources": 35,
+            "downstream_applications": 24
+          }
+        },
+        "compliance_requirements": ["SOC2", "GDPR", "CCPA"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 58000000,
+        "data_processed_tb": 3800,
+        "avg_query_time_ms": 285,
+        "peak_concurrent_jobs": 420,
+        "monthly_active_users": 1450
+      },
+      "support_history": {
+        "tickets_opened_ytd": 42,
+        "avg_resolution_time_hours": 5.2,
+        "satisfaction_score": 3.8,
+        "enterprise_support_level": "Standard"
+      },
+      "growth_potential": "Medium",
+      "churn_risk": "Medium",
+      "use_cases": [
+        "Dynamic pricing optimization",
+        "Ride demand forecasting",
+        "Driver efficiency analysis",
+        "Customer journey analytics",
+        "Geospatial data analysis",
+        "Fraud detection"
+      ]
+    },
+    {
+      "customer_id": "CUST-78943",
+      "company_name": "Coursera",
+      "industry": "EdTech",
+      "company_size": "Medium Enterprise",
+      "annual_revenue": "$523M",
+      "founded_year": 2012,
+      "headquarters": {
+        "address": "381 E. Evelyn Avenue",
+        "city": "Mountain View",
+        "state": "CA",
+        "zip": "94041",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "James Rodriguez",
+        "title": "VP of Engineering",
+        "email": "j.rodriguez@example-coursera.com",
+        "phone": "650-555-2218"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 68000,
+        "start_date": "2023-09-05",
+        "renewal_date": "2025-09-05",
+        "payment_method": "ACH",
+        "status": "Active",
+        "discount_applied": 0.08
+      },
+      "cloud_environment": {
+        "primary_provider": "GCP",
+        "secondary_providers": ["AWS"],
+        "monthly_cloud_spend": 310000,
+        "resources": {
+          "compute": {
+            "clusters": 38,
+            "average_nodes_per_cluster": 8,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 16
+          },
+          "storage": {
+            "delta_lake_storage_tb": 420,
+            "external_tables_tb": 950
+          },
+          "workloads": {
+            "etl_jobs": 145,
+            "ml_models_in_production": 32,
+            "bi_dashboards": 85
+          },
+          "integrations": {
+            "connected_data_sources": 22,
+            "downstream_applications": 18
+          }
+        },
+        "compliance_requirements": ["FERPA", "SOC2", "GDPR", "CCPA"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 18900000,
+        "data_processed_tb": 950,
+        "avg_query_time_ms": 372,
+        "peak_concurrent_jobs": 180,
+        "monthly_active_users": 680
+      },
+      "support_history": {
+        "tickets_opened_ytd": 36,
+        "avg_resolution_time_hours": 6.1,
+        "satisfaction_score": 4.3,
+        "enterprise_support_level": "Standard"
+      },
+      "growth_potential": "High",
+      "churn_risk": "Low",
+      "use_cases": [
+        "Learner recommendation systems",
+        "Content effectiveness analytics",
+        "Learning pathway optimization",
+        "User engagement prediction",
+        "Course demand forecasting",
+        "Personalized learning experiences"
+      ]
+    },
+    {
+      "customer_id": "CUST-61234",
+      "company_name": "Wayfair",
+      "industry": "E-commerce",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$12.2B",
+      "founded_year": 2002,
+      "headquarters": {
+        "address": "4 Copley Place",
+        "city": "Boston",
+        "state": "MA",
+        "zip": "02116",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Taylor Williams",
+        "title": "Director of Data Engineering",
+        "email": "t.williams@example-wayfair.com",
+        "phone": "617-555-9900"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 150000,
+        "start_date": "2022-11-18",
+        "renewal_date": "2025-11-18",
+        "payment_method": "ACH",
+        "status": "Active",
+        "discount_applied": 0.12
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["GCP"],
+        "monthly_cloud_spend": 860000,
+        "resources": {
+          "compute": {
+            "clusters": 85,
+            "average_nodes_per_cluster": 12,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 42
+          },
+          "storage": {
+            "delta_lake_storage_tb": 1850,
+            "external_tables_tb": 3200
+          },
+          "workloads": {
+            "etl_jobs": 380,
+            "ml_models_in_production": 65,
+            "bi_dashboards": 210
+          },
+          "integrations": {
+            "connected_data_sources": 48,
+            "downstream_applications": 32
+          }
+        },
+        "compliance_requirements": ["PCI-DSS", "SOC2", "GDPR", "CCPA"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 42000000,
+        "data_processed_tb": 2100,
+        "avg_query_time_ms": 358,
+        "peak_concurrent_jobs": 580,
+        "monthly_active_users": 1240
+      },
+      "support_history": {
+        "tickets_opened_ytd": 58,
+        "avg_resolution_time_hours": 4.8,
+        "satisfaction_score": 4.2,
+        "enterprise_support_level": "Premium"
+      },
+      "growth_potential": "High",
+      "churn_risk": "Low",
+      "use_cases": [
+        "Product recommendation engine",
+        "Inventory forecasting",
+        "Dynamic pricing optimization",
+        "Customer segmentation",
+        "Supply chain optimization",
+        "Marketing campaign analysis",
+        "Visual search capabilities"
+      ]
+    },
+    {
+      "customer_id": "CUST-92567",
+      "company_name": "Moderna",
+      "industry": "Biotechnology",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$19.3B",
+      "founded_year": 2010,
+      "headquarters": {
+        "address": "200 Technology Square",
+        "city": "Cambridge",
+        "state": "MA",
+        "zip": "02139",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Rebecca Alvarez",
+        "title": "VP of Research Informatics",
+        "email": "r.alvarez@example-moderna.com",
+        "phone": "617-555-8822"
+      },
+      "subscription": {
+        "plan": "Enterprise Premium",
+        "monthly_cost": 185000,
+        "start_date": "2023-05-22",
+        "renewal_date": "2025-05-22",
+        "payment_method": "Wire Transfer",
+        "status": "Active",
+        "discount_applied": 0.15
+      },
+      "cloud_environment": {
+        "primary_provider": "Azure",
+        "secondary_providers": ["AWS"],
+        "monthly_cloud_spend": 1250000,
+        "resources": {
+          "compute": {
+            "clusters": 95,
+            "average_nodes_per_cluster": 14,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 68
+          },
+          "storage": {
+            "delta_lake_storage_tb": 2400,
+            "external_tables_tb": 5800
+          },
+          "workloads": {
+            "etl_jobs": 420,
+            "ml_models_in_production": 95,
+            "bi_dashboards": 180
+          },
+          "integrations": {
+            "connected_data_sources": 42,
+            "downstream_applications": 28
+          }
+        },
+        "compliance_requirements": ["HIPAA", "GxP", "FDA CFR Part 11", "SOC2", "GDPR"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 65000000,
+        "data_processed_tb": 3200,
+        "avg_query_time_ms": 390,
+        "peak_concurrent_jobs": 680,
+        "monthly_active_users": 950
+      },
+      "support_history": {
+        "tickets_opened_ytd": 52,
+        "avg_resolution_time_hours": 3.2,
+        "satisfaction_score": 4.6,
+        "enterprise_support_level": "Premium Plus"
+      },
+      "growth_potential": "Very High",
+      "churn_risk": "Very Low",
+      "use_cases": [
+        "Genomic data analysis",
+        "mRNA sequence optimization",
+        "Clinical trial analytics",
+        "Drug discovery acceleration",
+        "Manufacturing process optimization",
+        "Scientific literature mining"
+      ]
+    },
+    {
+      "customer_id": "CUST-33781",
+      "company_name": "Airbnb",
+      "industry": "Travel Technology",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$8.4B",
+      "founded_year": 2008,
+      "headquarters": {
+        "address": "888 Brannan Street",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94103",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "David Zhang",
+        "title": "Senior Director of Data Science",
+        "email": "d.zhang@example-airbnb.com",
+        "phone": "415-555-6644"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 120000,
+        "start_date": "2023-03-15",
+        "renewal_date": "2026-03-15",
+        "payment_method": "Credit Card",
+        "status": "Active",
+        "discount_applied": 0.10
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": [],
+        "monthly_cloud_spend": 920000,
+        "resources": {
+          "compute": {
+            "clusters": 78,
+            "average_nodes_per_cluster": 10,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 38
+          },
+          "storage": {
+            "delta_lake_storage_tb": 1650,
+            "external_tables_tb": 3800
+          },
+          "workloads": {
+            "etl_jobs": 350,
+            "ml_models_in_production": 85,
+            "bi_dashboards": 190
+          },
+          "integrations": {
+            "connected_data_sources": 45,
+            "downstream_applications": 36
+          }
+        },
+        "compliance_requirements": ["SOC2", "GDPR", "CCPA", "PCI-DSS"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 75000000,
+        "data_processed_tb": 2800,
+        "avg_query_time_ms": 325,
+        "peak_concurrent_jobs": 520,
+        "monthly_active_users": 1180
+      },
+      "support_history": {
+        "tickets_opened_ytd": 45,
+        "avg_resolution_time_hours": 4.2,
+        "satisfaction_score": 4.5,
+        "enterprise_support_level": "Premium"
+      },
+      "growth_potential": "Medium",
+      "churn_risk": "Low",
+      "use_cases": [
+        "Dynamic pricing algorithms",
+        "User preference modeling",
+        "Fraud detection",
+        "Host performance analytics",
+        "Search and recommendation optimization",
+        "Geospatial analytics",
+        "Customer service automation"
+      ]
+    },
+    {
+      "customer_id": "CUST-54129",
+      "company_name": "Stripe",
+      "industry": "FinTech",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$7.5B",
+      "founded_year": 2010,
+      "headquarters": {
+        "address": "510 Townsend Street",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94103",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Priya Sharma",
+        "title": "Head of Data Engineering",
+        "email": "p.sharma@example-stripe.com",
+        "phone": "415-555-4242"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 135000,
+        "start_date": "2023-08-15",
+        "renewal_date": "2026-08-15",
+        "payment_method": "ACH",
+        "status": "Active",
+        "discount_applied": 0.12
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["GCP"],
+        "monthly_cloud_spend": 1050000,
+        "resources": {
+          "compute": {
+            "clusters": 92,
+            "average_nodes_per_cluster": 12,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 48
+          },
+          "storage": {
+            "delta_lake_storage_tb": 1950,
+            "external_tables_tb": 4200
+          },
+          "workloads": {
+            "etl_jobs": 420,
+            "ml_models_in_production": 110,
+            "bi_dashboards": 230
+          },
+          "integrations": {
+            "connected_data_sources": 52,
+            "downstream_applications": 38
+          }
+        },
+        "compliance_requirements": ["PCI-DSS", "SOC1", "SOC2", "GDPR", "ISO 27001", "FINRA"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 82000000,
+        "data_processed_tb": 3500,
+        "avg_query_time_ms": 310,
+        "peak_concurrent_jobs": 620,
+        "monthly_active_users": 1350
+      },
+      "support_history": {
+        "tickets_opened_ytd": 49,
+        "avg_resolution_time_hours": 3.5,
+        "satisfaction_score": 4.7,
+        "enterprise_support_level": "Premium"
+      },
+      "growth_potential": "High",
+      "churn_risk": "Very Low",
+      "use_cases": [
+        "Fraud detection and prevention",
+        "Risk modeling and assessment",
+        "Transaction pattern analysis",
+        "Merchant analytics",
+        "Customer behavior modeling",
+        "Compliance monitoring",
+        "Payment optimization"
+      ]
+    },
+    {
+      "customer_id": "CUST-67890",
+      "company_name": "UnitedHealth Group",
+      "industry": "Healthcare",
+      "company_size": "Enterprise",
+      "annual_revenue": "$324.2B",
+      "founded_year": 1977,
+      "headquarters": {
+        "address": "9900 Bren Road East",
+        "city": "Minnetonka",
+        "state": "MN",
+        "zip": "55343",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Thomas Morgan",
+        "title": "Chief Data Officer",
+        "email": "t.morgan@example-uhg.com",
+        "phone": "952-555-7733"
+      },
+      "subscription": {
+        "plan": "Enterprise Premium",
+        "monthly_cost": 380000,
+        "start_date": "2022-08-10",
+        "renewal_date": "2025-08-10",
+        "payment_method": "Wire Transfer",
+        "status": "Active",
+        "discount_applied": 0.20
+      },
+      "cloud_environment": {
+        "primary_provider": "AWS",
+        "secondary_providers": ["Azure"],
+        "monthly_cloud_spend": 2750000,
+        "resources": {
+          "compute": {
+            "clusters": 160,
+            "average_nodes_per_cluster": 15,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 95
+          },
+          "storage": {
+            "delta_lake_storage_tb": 5200,
+            "external_tables_tb": 9800
+          },
+          "workloads": {
+            "etl_jobs": 780,
+            "ml_models_in_production": 135,
+            "bi_dashboards": 420
+          },
+          "integrations": {
+            "connected_data_sources": 85,
+            "downstream_applications": 65
+          }
+        },
+        "compliance_requirements": ["HIPAA", "HITRUST", "SOC1", "SOC2", "GDPR", "NIST"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 110000000,
+        "data_processed_tb": 5800,
+        "avg_query_time_ms": 350,
+        "peak_concurrent_jobs": 920,
+        "monthly_active_users": 2400
+      },
+      "support_history": {
+        "tickets_opened_ytd": 78,
+        "avg_resolution_time_hours": 2.5,
+        "satisfaction_score": 4.4,
+        "enterprise_support_level": "Premium Plus"
+      },
+      "growth_potential": "Medium",
+      "churn_risk": "Very Low",
+      "use_cases": [
+        "Healthcare claims analysis",
+        "Clinical outcome prediction",
+        "Care management optimization",
+        "Provider network analysis",
+        "Fraud detection",
+        "Risk adjustment modeling",
+        "Population health management"
+      ]
+    },
+    {
+      "customer_id": "CUST-12345",
+      "company_name": "Spotify",
+      "industry": "Media Streaming",
+      "company_size": "Large Enterprise",
+      "annual_revenue": "$11.9B",
+      "founded_year": 2006,
+      "headquarters": {
+        "address": "4 World Trade Center",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10007",
+        "country": "USA"
+      },
+      "primary_contact": {
+        "name": "Marcus Ericsson",
+        "title": "VP of Data Platform",
+        "email": "m.ericsson@example-spotify.com",
+        "phone": "212-555-8888"
+      },
+      "subscription": {
+        "plan": "Enterprise",
+        "monthly_cost": 110000,
+        "start_date": "2023-05-12",
+        "renewal_date": "2026-05-12",
+        "payment_method": "ACH",
+        "status": "Active",
+        "discount_applied": 0.10
+      },
+      "cloud_environment": {
+        "primary_provider": "GCP",
+        "secondary_providers": ["AWS"],
+        "monthly_cloud_spend": 920000,
+        "resources": {
+          "compute": {
+            "clusters": 85,
+            "average_nodes_per_cluster": 12,
+            "autoscaling_enabled": true,
+            "gpus_utilized": 45
+          },
+          "storage": {
+            "delta_lake_storage_tb": 1850,
+            "external_tables_tb": 4500
+          },
+          "workloads": {
+            "etl_jobs": 380,
+            "ml_models_in_production": 95,
+            "bi_dashboards": 185
+          },
+          "integrations": {
+            "connected_data_sources": 48,
+            "downstream_applications": 35
+          }
+        },
+        "compliance_requirements": ["SOC2", "GDPR", "CCPA", "ISO 27001"]
+      },
+      "usage_metrics": {
+        "queries_monthly": 65000000,
+        "data_processed_tb": 2400,
+        "avg_query_time_ms": 295,
+        "peak_concurrent_jobs": 520,
+        "monthly_active_users": 1280
+      },
+      "support_history": {
+        "tickets_opened_ytd": 42,
+        "avg_resolution_time_hours": 3.8,
+        "satisfaction_score": 4.5,
+        "enterprise_support_level": "Premium"
+      },
+      "growth_potential": "High",
+      "churn_risk": "Low",
+      "use_cases": [
+        "Music recommendation systems",
+        "User behavior analysis",
+        "Content performance analytics",
+        "A/B testing platform",
+        "Ad targeting optimization",
+        "Content creator analytics",
+        "Personalization algorithms"
+      ]
+    }
+  ]
+}
