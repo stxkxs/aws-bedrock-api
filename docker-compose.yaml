@@ -1,0 +1,57 @@
+services:
+  aws-bedrock-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aws-bedrock-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      otel-collector:
+        condition: service_started
+      cassandra:
+        condition: service_healthy
+    networks:
+      - otel-network
+    volumes:
+      - ~/.aws:/root/.aws
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE}
+
+  cassandra:
+    image: cassandra:5.0-beta1
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=bedrock-cluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_ENDPOINT_SNITCH=SimpleSnitch
+    healthcheck:
+      test: [ "CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - ./cassandra:/setup
+    command: bash -c "./setup/init.sh & /usr/local/bin/docker-entrypoint.sh cassandra -f"
+    networks:
+      - otel-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8888:8888"
+    env_file: .env
+    networks:
+      - otel-network
+
+networks:
+  otel-network:
+    driver: bridge

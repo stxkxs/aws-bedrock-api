@@ -1,0 +1,83 @@
+app:
+  bedrock:
+    timeout: 10 # minutes
+  conversation:
+    history: 30
+    documents: 30
+
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  application:
+    name: aws-bedrock-api
+
+  cassandra:
+    port: 9042
+    contact-points: cassandra
+    local-datacenter: datacenter1
+    keyspace-name: stxkxs
+
+  ai:
+    bedrock:
+      embedding:
+        model-id: amazon.titan-embed-text-v2:0
+      aws:
+        timeout: 5m
+        region: ${AWS_REGION:us-west-2}
+        profile-name: ${AWS_PROFILE:default}
+      converse:
+        chat:
+          enabled: true
+          options:
+            temperature: 0.7
+            max-tokens: 4096
+            top-p: 0.9
+            models:
+              claude-sonnet: us.anthropic.claude-3-7-sonnet-20250219-v1:0
+              claude-haiku: us.anthropic.claude-3-5-haiku-20241022-v1:0
+              nova-pro: amazon.nova-pro-v1:0
+              titan-text: amazon.titan-text-express-v1
+              llama3: meta.llama3-70b-instruct-v1:0
+    vectorstore:
+      cassandra:
+        keyspace: stxkxs
+        table: vector_documents
+        embedding-column-name: embedding
+        content-column-name: content
+
+logging:
+  level:
+    root: INFO
+    io.stxkxs.bedrock: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg traceId=%X{trace_id} spanId=%X{span_id}%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+otel:
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+  logs:
+    exporter: otlp
+  exporter:
+    otlp:
+      endpoint: http://otel-collector:4317
+  resource:
+    attributes: service.name=aws-bedrock-api,service.version=1.0.0,deployment.environment=local
+  java:
+    enabled:
+      resource:
+        providers: host,os,process

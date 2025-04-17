@@ -1,0 +1,114 @@
+{
+  "team_name": "Data Pipeline Engineering",
+  "team_id": "ENG-PIPE-01",
+  "team_lead": "Sarah Chen",
+  "projects": [
+    {
+      "project_id": "PIPE-2024-001",
+      "project_name": "Real-time Streaming Architecture Overhaul",
+      "start_date": "2024-01-15",
+      "completion_date": "2024-03-28",
+      "status": "Completed",
+      "business_impact": {
+        "latency_reduction": "87%",
+        "throughput_increase": "340%",
+        "cost_savings_annual": "$450,000",
+        "customer_impact": "Enabled sub-second analytics for 5 enterprise customers"
+      },
+      "success_metrics": {
+        "budget_performance": "Under budget by 8%",
+        "timeline_performance": "Completed 2 weeks early",
+        "quality_metrics": {
+          "bugs_reported_post_launch": 3,
+          "critical_issues": 0,
+          "code_coverage": "94%"
+        }
+      },
+      "technologies": ["Kafka", "Spark Structured Streaming", "Delta Lake", "Databricks"],
+      "team_size": 6,
+      "customer_testimonials": [
+        {
+          "customer": "Goldman Sachs",
+          "quote": "Transformed our ability to detect trading anomalies in real-time",
+          "impact": "Reduced false positive alerts by 75%"
+        }
+      ],
+      "lessons_learned": [
+        "Parallel development with feature flags allowed faster iteration",
+        "Early customer involvement improved final implementation",
+        "Cross-team workshops accelerated adoption"
+      ]
+    },
+    {
+      "project_id": "PIPE-2024-002",
+      "project_name": "Multi-cloud Data Synchronization Framework",
+      "start_date": "2024-02-10",
+      "completion_date": "2024-05-05",
+      "status": "Completed",
+      "business_impact": {
+        "cross_cloud_latency": "Reduced from 8 minutes to 45 seconds",
+        "data_consistency_improvement": "99.998% consistency achieved",
+        "new_capability_unlocked": "True hybrid-cloud analytics for regulated industries",
+        "customer_impact": "Enabled 3 enterprise customers to expand to multi-cloud"
+      },
+      "success_metrics": {
+        "budget_performance": "On budget",
+        "timeline_performance": "Completed on schedule",
+        "quality_metrics": {
+          "bugs_reported_post_launch": 7,
+          "critical_issues": 1,
+          "code_coverage": "91%"
+        }
+      },
+      "technologies": ["AWS Lambda", "Azure Functions", "GCP Cloud Run", "Delta Sharing"],
+      "team_size": 8,
+      "customer_testimonials": [
+        {
+          "customer": "UnitedHealth Group",
+          "quote": "Critical capability that enables our multi-cloud compliance strategy",
+          "impact": "Reduced data duplication costs by $1.2M annually"
+        }
+      ],
+      "lessons_learned": [
+        "Invest more time in cross-cloud security testing",
+        "Network latency was the biggest challenge to overcome",
+        "Documentation automation paid dividends for customer onboarding"
+      ]
+    },
+    {
+      "project_id": "PIPE-2024-003",
+      "project_name": "Data Catalog Integration Framework",
+      "start_date": "2024-04-01",
+      "status": "In Progress",
+      "expected_completion": "2024-06-15",
+      "completion_percentage": 75,
+      "business_impact": {
+        "projected_data_discovery_improvement": "65% faster data discovery",
+        "governance_enhancement": "Automated lineage tracking across all data assets",
+        "customer_impact": "Expected adoption by 80% of enterprise customers"
+      },
+      "current_metrics": {
+        "budget_performance": "Tracking 5% under budget",
+        "timeline_performance": "On schedule",
+        "quality_metrics": {
+          "code_coverage": "89%",
+          "automated_tests": 342
+        }
+      },
+      "technologies": ["Unity Catalog", "Apache Atlas", "OpenLineage", "GraphQL API"],
+      "team_size": 5,
+      "early_feedback": [
+        {
+          "customer": "Mayo Clinic",
+          "quote": "The API design is elegantly simple yet comprehensive",
+          "projected_impact": "Will reduce compliance documentation effort by 60%"
+        }
+      ],
+      "key_challenges": [
+        "Maintaining backward compatibility with legacy systems",
+        "Performance at scale with complex lineage graphs",
+        "Cross-platform security model standardization"
+      ]
+    }
+  ]
+}
