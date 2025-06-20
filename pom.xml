@@ -36,7 +36,7 @@
         <spring-ai.version>1.0.0-M6</spring-ai.version>
         <spring-data-bom.version>2025.0.0-M2</spring-data-bom.version>
         <jackson.version>2.18.3</jackson.version>
-        <guava.version>33.4.6-jre</guava.version>
+        <guava.version>33.4.8-jre</guava.version>
         <jakarta.version>3.1.1</jakarta.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <commons-text.version>1.11.0</commons-text.version>
