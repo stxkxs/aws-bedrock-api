@@ -35,7 +35,7 @@
         <mockito.version>5.16.0</mockito.version>
         <spring-ai.version>1.0.0-M6</spring-ai.version>
         <spring-data-bom.version>2025.0.0-M2</spring-data-bom.version>
-        <jackson.version>2.18.3</jackson.version>
+        <jackson.version>2.19.1</jackson.version>
         <guava.version>33.4.8-jre</guava.version>
         <jakarta.version>3.1.1</jakarta.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
