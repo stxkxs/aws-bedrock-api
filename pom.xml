@@ -31,7 +31,7 @@
         <opentelemetry-sdk.version>1.51.0</opentelemetry-sdk.version>
         <opentelemetry-exporter-otlp.version>1.51.0</opentelemetry-exporter-otlp.version>
         <opentelemetry-semconv.version>1.34.0</opentelemetry-semconv.version>
-        <aws.sdk.version>2.31.73</aws.sdk.version>
+        <aws.sdk.version>2.31.77</aws.sdk.version>
         <mockito.version>5.16.0</mockito.version>
         <spring-ai.version>1.0.0-M6</spring-ai.version>
         <spring-data-bom.version>2025.0.0-M2</spring-data-bom.version>
