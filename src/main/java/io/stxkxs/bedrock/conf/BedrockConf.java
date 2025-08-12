@@ -5,6 +5,7 @@ import org.springframework.ai.bedrock.titan.BedrockTitanEmbeddingModel;
 import org.springframework.ai.bedrock.titan.api.TitanEmbeddingBedrockApi;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.model.tool.ToolCallingChatOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 import java.time.Duration;
+import java.util.Map;
 
 @Configuration
 public class BedrockConf {
@@ -29,32 +31,11 @@ public class BedrockConf {
   @Value("${app.bedrock.timeout:10}")
   private Long timeout;
 
-  @Value("${spring.ai.bedrock.converse.chat.options.temperature:0.7}")
-  private Double temperature;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.max-tokens:4096}")
-  private Integer maxTokens;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.top-p:0.9}")
-  private Double topP;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.models.claude-sonnet:us.anthropic.claude-3-7-sonnet-20250219-v1:0}")
-  private String claudeSonnetModelId;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.models.claude-haiku:us.anthropic.claude-3-5-haiku-20241022-v1:0}")
-  private String claudeHaikuModelId;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.models.nova-pro:amazon.nova-pro-v1:0}")
-  private String novaProModelId;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.models.titan-text:amazon.titan-text-express-v1}")
-  private String titanTextModelId;
-
-  @Value("${spring.ai.bedrock.converse.chat.options.models.llama3:meta.llama3-70b-instruct-v1:0}")
-  private String llama3ModelId;
-
   @Value("${spring.ai.bedrock.embedding.model-id:amazon.titan-embed-text-v2:0}")
   private String embeddingModelId;
+
+  @Autowired
+  private ModelConfiguration modelConfiguration;
 
   @Bean
   public BedrockRuntimeClient bedrockRuntimeClient() {
@@ -74,79 +55,48 @@ public class BedrockConf {
   @Primary
   @Qualifier("anthropic.claude-sonnet")
   public BedrockProxyChatModel claudeSonnetModel() {
-    return BedrockProxyChatModel.builder()
-      .bedrockRuntimeClient(bedrockRuntimeClient())
-      .region(Region.of(awsRegion))
-      .timeout(Duration.ofMinutes(timeout))
-      .defaultOptions(ToolCallingChatOptions.builder()
-        .model(claudeSonnetModelId)
-        .topP(topP)
-        .temperature(temperature)
-        .maxTokens(maxTokens)
-        .build())
-      .build();
+    return createChatModel("claude-sonnet");
   }
 
   @Bean
-  @Qualifier("anthropic.claude-haiku")
-  public BedrockProxyChatModel claudeHaikuModel() {
-    return BedrockProxyChatModel.builder()
-      .bedrockRuntimeClient(bedrockRuntimeClient())
-      .region(Region.of(awsRegion))
-      .timeout(Duration.ofMinutes(timeout))
-      .defaultOptions(ToolCallingChatOptions.builder()
-        .model(claudeHaikuModelId)
-        .topP(topP)
-        .temperature(temperature)
-        .maxTokens(maxTokens)
-        .build())
-      .build();
+  @Qualifier("anthropic.claude-opus")
+  public BedrockProxyChatModel claudeOpusModel() {
+    return createChatModel("claude-opus");
   }
 
   @Bean
-  @Qualifier("amazon.nova-pro")
-  public BedrockProxyChatModel novaProModel() {
-    return BedrockProxyChatModel.builder()
-      .bedrockRuntimeClient(bedrockRuntimeClient())
-      .region(Region.of(awsRegion))
-      .timeout(Duration.ofMinutes(timeout))
-      .defaultOptions(ToolCallingChatOptions.builder()
-        .model(novaProModelId)
-        .topP(topP)
-        .temperature(temperature)
-        .maxTokens(maxTokens)
-        .build())
-      .build();
+  @Qualifier("amazon.nova-premiere")
+  public BedrockProxyChatModel novaPremiereModel() {
+    return createChatModel("nova-premiere");
   }
 
   @Bean
   @Qualifier("amazon.titan-text")
   public BedrockProxyChatModel titanTextModel() {
-    return BedrockProxyChatModel.builder()
-      .bedrockRuntimeClient(bedrockRuntimeClient())
-      .region(Region.of(awsRegion))
-      .timeout(Duration.ofMinutes(timeout))
-      .defaultOptions(ToolCallingChatOptions.builder()
-        .model(titanTextModelId)
-        .topP(topP)
-        .temperature(temperature)
-        .maxTokens(maxTokens)
-        .build())
-      .build();
+    return createChatModel("titan-text");
   }
 
   @Bean
-  @Qualifier("meta.llama3")
-  public BedrockProxyChatModel llamaModel() {
+  @Qualifier("meta.llama4")
+  public BedrockProxyChatModel llama4Model() {
+    return createChatModel("llama4");
+  }
+
+  private BedrockProxyChatModel createChatModel(String modelKey) {
+    String modelId = modelConfiguration.getModelId(modelKey);
+    if (modelId == null) {
+      throw new IllegalArgumentException("Model ID not found for key: " + modelKey);
+    }
+    
     return BedrockProxyChatModel.builder()
       .bedrockRuntimeClient(bedrockRuntimeClient())
       .region(Region.of(awsRegion))
       .timeout(Duration.ofMinutes(timeout))
       .defaultOptions(ToolCallingChatOptions.builder()
-        .model(llama3ModelId)
-        .topP(topP)
-        .temperature(temperature)
-        .maxTokens(maxTokens)
+        .model(modelId)
+        .topP(modelConfiguration.getTopP())
+        .temperature(modelConfiguration.getTemperature())
+        .maxTokens(modelConfiguration.getMaxTokens())
         .build())
       .build();
   }

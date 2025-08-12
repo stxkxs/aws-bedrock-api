@@ -42,25 +42,25 @@ public class ConversationService {
 
   public ConversationService(
     @Qualifier("anthropic.claude-sonnet") BedrockProxyChatModel claudeSonnetModel,
-    @Qualifier("anthropic.claude-haiku") BedrockProxyChatModel claudeHaikuModel,
+    @Qualifier("anthropic.claude-opus") BedrockProxyChatModel claudeOpusModel,
     @Qualifier("amazon.titan-text") BedrockProxyChatModel titanTextModel,
-    @Qualifier("amazon.nova-pro") BedrockProxyChatModel novaProModel,
-    @Qualifier("meta.llama3") BedrockProxyChatModel llamaModel,
+    @Qualifier("amazon.nova-premiere") BedrockProxyChatModel novaPremiereModel,
+    @Qualifier("meta.llama4") BedrockProxyChatModel llama4Model,
     DocumentService documentService,
     ConversationRepository conversationRepository,
     ConversationSessionRepository sessionRepository) {
 
-    this.defaultModel = claudeSonnetModel;
+    this.defaultModel = llama4Model;
     this.documentService = documentService;
     this.conversationRepository = conversationRepository;
     this.sessionRepository = sessionRepository;
 
     this.modelMap = Map.of(
       "claude-sonnet", claudeSonnetModel,
-      "claude-haiku", claudeHaikuModel,
+      "claude-opus", claudeOpusModel,
       "titan", titanTextModel,
-      "nova", novaProModel,
-      "llama", llamaModel
+      "nova", novaPremiereModel,
+      "llama", llama4Model
     );
   }
 

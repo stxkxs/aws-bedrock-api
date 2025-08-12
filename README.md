@@ -59,11 +59,11 @@ This API provides a streamlined interface to AWS Bedrock services, offering:
 
 The system supports multiple language models:
 
-- `claude-sonnet`: Anthropic Claude 3.7 Sonnet
-- `claude-haiku`: Anthropic Claude 3.5 Haiku
-- `nova-pro`: Amazon Nova Pro
-- `titan-text`: Amazon Titan Text Express
-- `llama3`: Meta Llama 3 70B
+- `claude-sonnet`: Anthropic Claude Sonnet 4
+- `claude-opus`: Anthropic Claude Opus 4.1
+- `nova`: Amazon Nova Premiere
+- `titan`: Amazon Titan Text Express
+- `llama`: Meta Llama 4 Maverick 17B
 
 ### Enabling AWS Bedrock Model Access
 

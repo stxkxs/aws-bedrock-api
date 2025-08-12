@@ -37,11 +37,11 @@ spring:
             max-tokens: 4096
             top-p: 0.9
             models:
-              claude-sonnet: us.anthropic.claude-3-7-sonnet-20250219-v1:0
-              claude-haiku: us.anthropic.claude-3-5-haiku-20241022-v1:0
-              nova-pro: amazon.nova-pro-v1:0
+              claude-sonnet: us.anthropic.claude-sonnet-4-20250514-v1:0
+              claude-opus: us.anthropic.claude-opus-4-1-20250805-v1:0
+              nova-premiere: amazon.nova-premier-v1:0
               titan-text: amazon.titan-text-express-v1
-              llama3: meta.llama3-70b-instruct-v1:0
+              llama4: meta.llama4-maverick-17b-instruct-v1:0
     vectorstore:
       cassandra:
         keyspace: stxkxs

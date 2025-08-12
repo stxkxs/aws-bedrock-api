@@ -109,14 +109,14 @@ class ConversationControllerTest {
   @Test
   @DisplayName("Should get available models")
   void shouldGetAvailableModels() throws Exception {
-    var models = List.of("claude-sonnet", "claude-haiku", "titan", "nova", "llama");
+    var models = List.of("claude-sonnet", "claude-opus", "titan", "nova", "llama");
     when(conversationService.getAvailableModels()).thenReturn(models);
 
     mockMvc.perform(get("/api/conversation/models"))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$", hasSize(5)))
       .andExpect(jsonPath("$[0]", is("claude-sonnet")))
-      .andExpect(jsonPath("$[1]", is("claude-haiku")))
+      .andExpect(jsonPath("$[1]", is("claude-opus")))
       .andExpect(jsonPath("$[2]", is("titan")))
       .andExpect(jsonPath("$[3]", is("nova")))
       .andExpect(jsonPath("$[4]", is("llama")));
