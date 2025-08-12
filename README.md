@@ -161,25 +161,23 @@ The application uses Grafana Cloud for observability via OpenTelemetry. To set u
 1. **Create a Grafana Cloud Account**:
    If you don't already have one, sign up at [Grafana Cloud](https://grafana.com/products/cloud/).
 
-2. **Access Your Grafana Cloud Instance**:
-   After logging in, navigate to your Grafana Cloud portal.
+2. **Access OpenTelemetry Configuration**:
+   After logging in, choose the target stack under Grafana Cloud, then select the Configure button of OpenTelemetry.
 
-3. **Get Your OTLP Endpoint**:
-    - Go to "Settings" in your Grafana Cloud instance
-    - Look for "Data Sources" or "Connections"
-    - Find the "OpenTelemetry" or "OTLP" section
-    - Copy the OTLP Endpoint URL (it should look like `https://otlp-gateway-prod-us-west-0.grafana.net/otlp`)
+3. **Copy OTLP Endpoint**:
+   Copy the OTLP endpoint from the configuration page (it should look like `https://otlp-gateway-prod-us-west-0.grafana.net/otlp`).
 
-4. **Get Your Instance ID**:
-    - This can typically be found in your account settings or in the URL of your Grafana dashboard
-    - The instance ID is a numeric value (e.g., `123456`)
+4. **Copy Instance ID**:
+   Copy the instance ID from the same page. The instance ID is a numeric value (e.g., `123456`).
 
 5. **Create an API Key**:
-    - Navigate to "Security" or "API Keys" in your Grafana Cloud settings
-    - Click "Add API Key" or "Create API Key"
+    - Launch Grafana Cloud stack from main page
+    - Within Grafana Cloud instance, navigate to Administration -> Users and Access -> Cloud access policies
+    - Create access policy with scopes: `alerts:read logs:read metrics:read rules:read traces:read profiles:read alerts:write logs:write metrics:write rules:write traces:write profiles:write`
     - Provide a name (e.g., "otel-collector")
-    - Select appropriate permissions (typically "MetricsPublisher" and "TracesPublisher")
-    - Click "Create" and copy the generated API key
+    - Click "Update" to create the access policy
+    - Finally, click "Add Token" to the access policy and also generate the graphite, logs, prometheus, and traces data sources
+    - Copy the generated API key (it will be used in the `.env` file)
 
 6. **Update Your `.env` File**:
    Create or modify the `.env` file in your project root with the following values:
