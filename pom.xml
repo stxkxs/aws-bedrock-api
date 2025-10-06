@@ -38,7 +38,7 @@
         <jackson.version>2.20.0</jackson.version>
         <guava.version>33.5.0-jre</guava.version>
         <jakarta.version>3.1.1</jakarta.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <commons-lang3.version>3.19.0</commons-lang3.version>
         <commons-text.version>1.14.0</commons-text.version>
         <commons-io.version>2.20.0</commons-io.version>
         <pdfbox.version>3.0.4</pdfbox.version>
