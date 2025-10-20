@@ -28,7 +28,7 @@
         <spring.boot.version>3.4.4</spring.boot.version>
         <opentelemetry-api.version>1.54.1</opentelemetry-api.version>
         <opentelemetry-annotation.version>2.20.1</opentelemetry-annotation.version>
-        <opentelemetry-sdk.version>1.54.1</opentelemetry-sdk.version>
+        <opentelemetry-sdk.version>1.55.0</opentelemetry-sdk.version>
         <opentelemetry-exporter-otlp.version>1.54.1</opentelemetry-exporter-otlp.version>
         <opentelemetry-semconv.version>1.37.0</opentelemetry-semconv.version>
         <aws.sdk.version>2.35.5</aws.sdk.version>
