@@ -9,12 +9,10 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-    # Only create PRs for security updates
-    groups:
-      security-updates:
-        applies-to: security-updates
-    # Disable version updates (handled by Renovate)
-    versioning-strategy: auto
+    # Ignore all version updates (handled by Renovate)
+    # Security updates are always enabled and cannot be disabled
+    ignore:
+      - dependency-name: "*"
 
   # Security updates for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -22,9 +20,8 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-    groups:
-      github-actions-security:
-        applies-to: security-updates
+    ignore:
+      - dependency-name: "*"
 
   # Security updates for Docker
   - package-ecosystem: "docker"
@@ -32,3 +29,5 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
