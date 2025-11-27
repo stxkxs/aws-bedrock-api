@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter
+    xmlns="https://github.com/spotbugs/filter/3.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+    <!-- Exclude Lombok-generated code -->
+    <Match>
+        <Class name="~.*\$.*Builder"/>
+    </Match>
+
+    <!-- Exclude test classes from certain checks -->
+    <Match>
+        <Class name="~.*Test"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+
+    <!-- Exclude configuration classes from immutability checks -->
+    <Match>
+        <Package name="io.stxkxs.bedrock.conf"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE,RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+
+    <!-- Exclude Spring-managed beans from serialization and mutable exposure checks -->
+    <Match>
+        <Or>
+            <Annotation name="org.springframework.stereotype.Service"/>
+            <Annotation name="org.springframework.stereotype.Component"/>
+            <Annotation name="org.springframework.stereotype.Controller"/>
+            <Annotation name="org.springframework.stereotype.Repository"/>
+            <Annotation name="org.springframework.web.bind.annotation.RestController"/>
+            <Annotation name="org.springframework.context.annotation.Configuration"/>
+        </Or>
+        <Bug pattern="SE_NO_SERIALVERSIONID,SE_BAD_FIELD,EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Exclude DTOs and records from exposure checks -->
+    <Match>
+        <Package name="io.stxkxs.bedrock.model"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Ignore unread fields in DTOs (often used by frameworks) -->
+    <Match>
+        <Package name="io.stxkxs.bedrock.model"/>
+        <Bug pattern="URF_UNREAD_FIELD,URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
+    <!-- Exclude service layer from mutable object storage warnings (Spring DI) -->
+    <Match>
+        <Package name="io.stxkxs.bedrock.service"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Exclude false positives for Spring error handlers -->
+    <Match>
+        <Class name="io.stxkxs.bedrock.error.GlobalExceptionHandler"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+</FindBugsFilter>
