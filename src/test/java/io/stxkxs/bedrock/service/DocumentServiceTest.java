@@ -1,5 +1,13 @@
 package io.stxkxs.bedrock.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,28 +22,16 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class DocumentServiceTest {
 
   private DocumentService documentService;
 
-  @Mock
-  private VectorStore vectorStore;
+  @Mock private VectorStore vectorStore;
 
-  @Mock
-  private TextExtractor textExtractor;
+  @Mock private TextExtractor textExtractor;
 
-  @Captor
-  private ArgumentCaptor<List<Document>> documentsCaptor;
+  @Captor private ArgumentCaptor<List<Document>> documentsCaptor;
 
   @BeforeEach
   void setUp() {
@@ -47,13 +43,10 @@ class DocumentServiceTest {
   void shouldEmbedDocumentAndAddToVectorStore() throws IOException {
     var title = "Test Document";
     var fileName = "test.txt";
-    var content = "This is a test document with sufficient content to be split into chunks for proper embedding in the vector store.";
-    var file = new MockMultipartFile(
-      "file",
-      fileName,
-      MediaType.TEXT_PLAIN_VALUE,
-      content.getBytes()
-    );
+    var content =
+        "This is a test document with sufficient content to be split into chunks for proper embedding in the vector store.";
+    var file =
+        new MockMultipartFile("file", fileName, MediaType.TEXT_PLAIN_VALUE, content.getBytes());
 
     when(textExtractor.extractTextFromFile(file)).thenReturn(content);
 
@@ -74,10 +67,8 @@ class DocumentServiceTest {
   void shouldSearchForDocumentsInVectorStore() {
     var query = "test query";
     var limit = 5;
-    var expectedDocuments = List.of(
-      createTestDocument("doc1", "content1"),
-      createTestDocument("doc2", "content2")
-    );
+    var expectedDocuments =
+        List.of(createTestDocument("doc1", "content1"), createTestDocument("doc2", "content2"));
 
     when(vectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(expectedDocuments);
 
@@ -107,10 +98,6 @@ class DocumentServiceTest {
   }
 
   private Document createTestDocument(String id, String content) {
-    return Document.builder()
-      .id(id)
-      .text(content)
-      .metadata(Map.of("source", "test"))
-      .build();
+    return Document.builder().id(id).text(content).metadata(Map.of("source", "test")).build();
   }
 }
