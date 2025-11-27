@@ -1,11 +1,34 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# Dependabot configuration for security updates only
+# Version updates are handled by Renovate
 
 version: 2
 updates:
+  # Security updates for Maven dependencies
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    # Only create PRs for security updates
+    groups:
+      security-updates:
+        applies-to: security-updates
+    # Disable version updates (handled by Renovate)
+    versioning-strategy: auto
+
+  # Security updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      github-actions-security:
+        applies-to: security-updates
+
+  # Security updates for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

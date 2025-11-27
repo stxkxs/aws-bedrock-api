@@ -1,5 +1,8 @@
 package io.stxkxs.bedrock.model;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,17 +10,12 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.UUID;
-
 @Data
 @Builder
 @Table("conversation_sessions")
 @AllArgsConstructor
 public class ConversationSession {
-  @PrimaryKey
-  private UUID id;
+  @PrimaryKey private UUID id;
 
   @Column("created_at")
   private Instant createdAt;

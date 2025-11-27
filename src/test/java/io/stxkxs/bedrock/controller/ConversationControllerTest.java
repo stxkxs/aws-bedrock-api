@@ -1,7 +1,18 @@
 package io.stxkxs.bedrock.controller;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import io.stxkxs.bedrock.model.ChatResponseWithSession;
 import io.stxkxs.bedrock.service.ConversationService;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,25 +26,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.List;
-import java.util.UUID;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @ExtendWith(MockitoExtension.class)
 class ConversationControllerTest {
 
   private MockMvc mockMvc;
 
-  @Mock
-  private ConversationService conversationService;
+  @Mock private ConversationService conversationService;
 
   private ConversationController conversationController;
 
@@ -57,22 +55,27 @@ class ConversationControllerTest {
     when(generation.getOutput()).thenReturn(message);
     when(chatResponse.getResult()).thenReturn(generation);
     when(conversationService.chat(sessionId, modelId, prompt))
-      .thenReturn(ChatResponseWithSession.builder()
-        .sessionId(sessionId)
-        .chatResponse(chatResponse)
-        .build());
+        .thenReturn(
+            ChatResponseWithSession.builder()
+                .sessionId(sessionId)
+                .chatResponse(chatResponse)
+                .build());
 
-    mockMvc.perform(post("/api/conversation/stream")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("""
+    mockMvc
+        .perform(
+            post("/api/conversation/stream")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    """
           {
               "prompt": "Hello, AI!",
               "sessionId": "%s",
               "modelId": "claude-sonnet"
           }
-          """.formatted(sessionId)))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.sessionId", is(sessionId.toString())));
+          """
+                        .formatted(sessionId)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.sessionId", is(sessionId.toString())));
   }
 
   @Test
@@ -89,21 +92,25 @@ class ConversationControllerTest {
     when(generation.getOutput()).thenReturn(message);
     when(chatResponse.getResult()).thenReturn(generation);
     when(conversationService.chat(null, modelId, prompt))
-      .thenReturn(ChatResponseWithSession.builder()
-        .chatResponse(chatResponse)
-        .sessionId(generatedSessionId)
-        .build());
+        .thenReturn(
+            ChatResponseWithSession.builder()
+                .chatResponse(chatResponse)
+                .sessionId(generatedSessionId)
+                .build());
 
-    mockMvc.perform(post("/api/conversation/stream")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("""
+    mockMvc
+        .perform(
+            post("/api/conversation/stream")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    """
           {
               "prompt": "Hello, AI!",
               "modelId": "claude-sonnet"
           }
           """))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.sessionId", is(generatedSessionId.toString())));
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.sessionId", is(generatedSessionId.toString())));
   }
 
   @Test
@@ -112,13 +119,14 @@ class ConversationControllerTest {
     var models = List.of("claude-sonnet", "claude-opus", "titan", "nova", "llama");
     when(conversationService.getAvailableModels()).thenReturn(models);
 
-    mockMvc.perform(get("/api/conversation/models"))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$", hasSize(5)))
-      .andExpect(jsonPath("$[0]", is("claude-sonnet")))
-      .andExpect(jsonPath("$[1]", is("claude-opus")))
-      .andExpect(jsonPath("$[2]", is("titan")))
-      .andExpect(jsonPath("$[3]", is("nova")))
-      .andExpect(jsonPath("$[4]", is("llama")));
+    mockMvc
+        .perform(get("/api/conversation/models"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(5)))
+        .andExpect(jsonPath("$[0]", is("claude-sonnet")))
+        .andExpect(jsonPath("$[1]", is("claude-opus")))
+        .andExpect(jsonPath("$[2]", is("titan")))
+        .andExpect(jsonPath("$[3]", is("nova")))
+        .andExpect(jsonPath("$[4]", is("llama")));
   }
 }

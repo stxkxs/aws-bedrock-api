@@ -1,128 +1,141 @@
 package io.stxkxs.bedrock.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import java.util.UUID;
-
+/**
+ * Extracts text content from various file formats.
+ *
+ * <p>Supports plain text, Markdown, CSV, and JSON file formats. Files are identified by extension
+ * first, then by content type.
+ */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class TextExtractor {
+
+  private static final String UNSUPPORTED_TYPE_MESSAGE =
+      "This file type is not supported for text extraction. Supported types: txt, md, csv, json";
+
+  private static final Map<String, FileType> EXTENSION_MAP =
+      Map.of(
+          ".txt", FileType.TEXT,
+          ".md", FileType.MARKDOWN,
+          ".markdown", FileType.MARKDOWN,
+          ".csv", FileType.CSV,
+          ".json", FileType.JSON);
+
+  private static final Set<String> MARKDOWN_CONTENT_TYPES = Set.of("text/markdown");
+  private static final Set<String> CSV_CONTENT_TYPES = Set.of("text/csv");
 
   private final ObjectMapper objectMapper;
 
-  public TextExtractor(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
+  /**
+   * Extracts text content from the uploaded file.
+   *
+   * @param file the uploaded file
+   * @return extracted text content
+   * @throws IOException if file reading or parsing fails
+   */
+  public String extractTextFromFile(MultipartFile file) throws IOException {
+    String filename = resolveFilename(file);
+    log.info("Extracting text from file: {}", filename);
+
+    MediaType contentType = parseContentType(file);
+    FileType fileType = determineFileType(filename, contentType);
+    log.debug("Determined file type: {}", fileType);
+
+    byte[] content = file.getBytes();
+    log.debug("File size: {} bytes", content.length);
+
+    return extractContent(fileType, content);
   }
 
-  public String extractTextFromFile(MultipartFile file) throws IOException {
-    log.info("extracting text from file: {}", file.getOriginalFilename());
+  private String resolveFilename(MultipartFile file) {
+    return Optional.ofNullable(file.getOriginalFilename())
+        .orElseGet(() -> UUID.randomUUID().toString())
+        .toLowerCase(Locale.ROOT);
+  }
 
-    var filename = Optional
-      .ofNullable(file.getOriginalFilename())
-      .orElseGet(() -> UUID.randomUUID().toString())
-      .toLowerCase();
-    var contentType = file.getContentType() != null
-      ? MediaType.parseMediaType(file.getContentType())
-      : null;
-
-    var fileType = determineFileType(filename, contentType);
-    log.debug("determined file type: {}", fileType);
-
-    var fileContent = file.getBytes();
-    log.debug("file size: {} bytes", fileContent.length);
-
-    try {
-      return switch (fileType) {
-        case TEXT -> extractFromTextFile(fileContent);
-        case MARKDOWN -> extractFromMarkdownFile(fileContent);
-        case CSV -> extractFromCsvFile(fileContent);
-        case JSON -> extractFromJsonFile(fileContent);
-        default -> {
-          log.warn("unsupported file type: {}", fileType);
-          yield "this file type is not supported for text extraction. " +
-            "supported types: txt, md, csv, json";
-        }
-      };
-    } catch (Exception e) {
-      log.error("error extracting text: {}", e.getMessage(), e);
-      throw new IOException("error extracting text from file: " + e.getMessage(), e);
-    }
+  private MediaType parseContentType(MultipartFile file) {
+    return Optional.ofNullable(file.getContentType()).map(MediaType::parseMediaType).orElse(null);
   }
 
   private FileType determineFileType(String filename, MediaType contentType) {
-    if (filename.endsWith(".txt")) {
-      return FileType.TEXT;
-    } else if (filename.endsWith(".md") || filename.endsWith(".markdown")) {
-      return FileType.MARKDOWN;
-    } else if (filename.endsWith(".csv")) {
-      return FileType.CSV;
-    } else if (filename.endsWith(".json")) {
-      return FileType.JSON;
-    } else if (contentType != null) {
-      if (contentType.includes(MediaType.TEXT_PLAIN)) {
-        return FileType.TEXT;
-      } else if (contentType.toString().equals("text/markdown")) {
-        return FileType.MARKDOWN;
-      } else if (contentType.toString().equals("text/csv")) {
-        return FileType.CSV;
-      } else if (contentType.includes(MediaType.APPLICATION_JSON)) {
-        return FileType.JSON;
-      }
+    return determineByExtension(filename)
+        .orElseGet(() -> determineByContentType(contentType).orElse(FileType.UNSUPPORTED));
+  }
+
+  private Optional<FileType> determineByExtension(String filename) {
+    return EXTENSION_MAP.entrySet().stream()
+        .filter(entry -> filename.endsWith(entry.getKey()))
+        .map(Map.Entry::getValue)
+        .findFirst();
+  }
+
+  private Optional<FileType> determineByContentType(MediaType contentType) {
+    if (contentType == null) {
+      return Optional.empty();
     }
 
-    return FileType.UNSUPPORTED;
-  }
+    String contentTypeString = contentType.toString();
 
-  private String extractFromTextFile(byte[] content) {
-    return new String(content, StandardCharsets.UTF_8);
-  }
-
-  private String extractFromMarkdownFile(byte[] content) {
-    return extractFromTextFile(content);
-  }
-
-  private String extractFromCsvFile(byte[] content) throws IOException {
-    try (var reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(content)))) {
-      var builder = new StringBuilder();
-      var line = "";
-
-      while ((line = reader.readLine()) != null) {
-        builder.append(line).append("\n");
-      }
-
-      var text = builder.toString();
-      log.debug("extracted {} characters from csv", text.length());
-
-      return text;
-    } catch (Exception e) {
-      log.error("error extracting text from csv: {}", e.getMessage(), e);
-      throw new IOException("failed to extract text from csv", e);
+    if (contentType.includes(MediaType.TEXT_PLAIN)) {
+      return Optional.of(FileType.TEXT);
     }
+    if (MARKDOWN_CONTENT_TYPES.contains(contentTypeString)) {
+      return Optional.of(FileType.MARKDOWN);
+    }
+    if (CSV_CONTENT_TYPES.contains(contentTypeString)) {
+      return Optional.of(FileType.CSV);
+    }
+    if (contentType.includes(MediaType.APPLICATION_JSON)) {
+      return Optional.of(FileType.JSON);
+    }
+
+    return Optional.empty();
   }
 
-  private String extractFromJsonFile(byte[] content) throws IOException {
+  private String extractContent(FileType fileType, byte[] content) throws IOException {
     try {
-      var jsonString = new String(content, StandardCharsets.UTF_8);
-      var jsonNode = objectMapper.readTree(jsonString);
-      var prettyJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
-
-      log.debug("extracted {} characters from json", prettyJson.length());
-
-      return prettyJson;
-    } catch (Exception e) {
-      log.error("error extracting text from json: {}", e.getMessage(), e);
-      throw new IOException("failed to parse json content", e);
+      return switch (fileType) {
+        case TEXT, MARKDOWN, CSV -> extractAsText(content);
+        case JSON -> extractAsJson(content);
+        case UNSUPPORTED -> {
+          log.warn("Unsupported file type requested");
+          yield UNSUPPORTED_TYPE_MESSAGE;
+        }
+      };
+    } catch (IOException e) {
+      log.error("Error extracting text: {}", e.getMessage(), e);
+      throw new IOException("Error extracting text from file: " + e.getMessage(), e);
     }
+  }
+
+  private String extractAsText(byte[] content) {
+    String text = new String(content, StandardCharsets.UTF_8);
+    log.debug("Extracted {} characters as text", text.length());
+    return text;
+  }
+
+  private String extractAsJson(byte[] content) throws IOException {
+    String jsonString = new String(content, StandardCharsets.UTF_8);
+    var jsonNode = objectMapper.readTree(jsonString);
+    String prettyJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
+
+    log.debug("Extracted {} characters from JSON", prettyJson.length());
+    return prettyJson;
   }
 
   private enum FileType {

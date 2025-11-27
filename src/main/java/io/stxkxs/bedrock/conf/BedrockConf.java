@@ -1,5 +1,7 @@
 package io.stxkxs.bedrock.conf;
 
+import io.micrometer.observation.ObservationRegistry;
+import java.time.Duration;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
 import org.springframework.ai.bedrock.titan.BedrockTitanEmbeddingModel;
 import org.springframework.ai.bedrock.titan.api.TitanEmbeddingBedrockApi;
@@ -16,9 +18,6 @@ import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
-import java.time.Duration;
-import java.util.Map;
-
 @Configuration
 public class BedrockConf {
 
@@ -34,21 +33,17 @@ public class BedrockConf {
   @Value("${spring.ai.bedrock.embedding.model-id:amazon.titan-embed-text-v2:0}")
   private String embeddingModelId;
 
-  @Autowired
-  private ModelConfiguration modelConfiguration;
+  @Autowired private ModelConfiguration modelConfiguration;
 
   @Bean
   public BedrockRuntimeClient bedrockRuntimeClient() {
     return BedrockRuntimeClient.builder()
-      .region(Region.of(awsRegion))
-      .credentialsProvider(ProfileCredentialsProvider.builder()
-        .profileName(awsProfileName)
-        .build())
-      .httpClient(ApacheHttpClient.builder()
-        .socketTimeout(Duration.ofMinutes(timeout))
-        .build())
-      .overrideConfiguration(c -> c.apiCallTimeout(Duration.ofMinutes(timeout)))
-      .build();
+        .region(Region.of(awsRegion))
+        .credentialsProvider(
+            ProfileCredentialsProvider.builder().profileName(awsProfileName).build())
+        .httpClient(ApacheHttpClient.builder().socketTimeout(Duration.ofMinutes(timeout)).build())
+        .overrideConfiguration(c -> c.apiCallTimeout(Duration.ofMinutes(timeout)))
+        .build();
   }
 
   @Bean
@@ -87,22 +82,25 @@ public class BedrockConf {
     if (modelId == null) {
       throw new IllegalArgumentException("Model ID not found for key: " + modelKey);
     }
-    
+
     return BedrockProxyChatModel.builder()
-      .bedrockRuntimeClient(bedrockRuntimeClient())
-      .region(Region.of(awsRegion))
-      .timeout(Duration.ofMinutes(timeout))
-      .defaultOptions(ToolCallingChatOptions.builder()
-        .model(modelId)
-        .topP(modelConfiguration.getTopP())
-        .temperature(modelConfiguration.getTemperature())
-        .maxTokens(modelConfiguration.getMaxTokens())
-        .build())
-      .build();
+        .bedrockRuntimeClient(bedrockRuntimeClient())
+        .region(Region.of(awsRegion))
+        .timeout(Duration.ofMinutes(timeout))
+        .defaultOptions(
+            ToolCallingChatOptions.builder()
+                .model(modelId)
+                .topP(modelConfiguration.getTopP())
+                .temperature(modelConfiguration.getTemperature())
+                .maxTokens(modelConfiguration.getMaxTokens())
+                .build())
+        .build();
   }
 
   @Bean
   public EmbeddingModel embeddingModel() {
-    return new BedrockTitanEmbeddingModel(new TitanEmbeddingBedrockApi(embeddingModelId, awsRegion, Duration.ofMinutes(timeout)));
+    return new BedrockTitanEmbeddingModel(
+        new TitanEmbeddingBedrockApi(embeddingModelId, awsRegion, Duration.ofMinutes(timeout)),
+        ObservationRegistry.NOOP);
   }
 }
