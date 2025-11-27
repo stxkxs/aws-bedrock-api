@@ -1,0 +1,36 @@
+# Test configuration - disables external dependencies
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration
+
+  ai:
+    bedrock:
+      aws:
+        region: us-west-2
+        profile-name: default
+
+# Disable Cassandra for tests
+spring.data.cassandra:
+  contact-points: localhost
+  port: 9042
+  local-datacenter: datacenter1
+  keyspace-name: test
+
+# Application test settings
+app:
+  bedrock:
+    timeout: 1
+  conversation:
+    history: 10
+    documents: 5
+
+# Logging
+logging:
+  level:
+    root: WARN
+    io.stxkxs.bedrock: DEBUG
+    org.springframework.test: INFO

@@ -11,8 +11,6 @@ public class AppConf {
 
   @Bean
   public ObjectMapper objectMapper() {
-    return JsonMapper.builder()
-      .addModule(new JavaTimeModule())
-      .build();
+    return JsonMapper.builder().addModule(new JavaTimeModule()).build();
   }
 }

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":automergePatch",
+    "group:recommended"
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "timezone": "America/Los_Angeles",
+  "schedule": ["before 6am on monday"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "packageRules": [
+    {
+      "description": "Group Spring Boot updates",
+      "matchPackagePatterns": ["^org\\.springframework\\.boot"],
+      "groupName": "Spring Boot",
+      "automerge": false
+    },
+    {
+      "description": "Group Spring AI updates",
+      "matchPackagePatterns": ["^org\\.springframework\\.ai"],
+      "groupName": "Spring AI",
+      "automerge": false
+    },
+    {
+      "description": "Group AWS SDK updates",
+      "matchPackagePatterns": ["^software\\.amazon\\.awssdk"],
+      "groupName": "AWS SDK",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group OpenTelemetry updates",
+      "matchPackagePatterns": ["^io\\.opentelemetry"],
+      "groupName": "OpenTelemetry",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group test dependencies",
+      "matchPackagePatterns": [
+        "^org\\.mockito",
+        "^org\\.testcontainers",
+        "^com\\.tngtech\\.archunit"
+      ],
+      "groupName": "Test Dependencies",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group code quality tools",
+      "matchPackagePatterns": [
+        "^com\\.github\\.spotbugs",
+        "^com\\.puppycrawl\\.tools",
+        "^com\\.google\\.errorprone",
+        "^com\\.spotify\\.fmt"
+      ],
+      "groupName": "Code Quality Tools",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group Jackson updates",
+      "matchPackagePatterns": ["^com\\.fasterxml\\.jackson"],
+      "groupName": "Jackson",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group Apache Commons",
+      "matchPackagePatterns": [
+        "^org\\.apache\\.commons",
+        "^commons-io"
+      ],
+      "groupName": "Apache Commons",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Automerge patch updates for stable dependencies",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "matchPackagePatterns": [
+        "^com\\.google\\.guava",
+        "^org\\.slf4j",
+        "^org\\.projectlombok"
+      ]
+    },
+    {
+      "description": "GitHub Actions - automerge minor and patch",
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Docker - require manual review for major updates",
+      "matchManagers": ["dockerfile"],
+      "automerge": false,
+      "matchUpdateTypes": ["major"]
+    },
+    {
+      "description": "Pin Maven plugin versions",
+      "matchDepTypes": ["plugin"],
+      "rangeStrategy": "pin"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true
+  },
+  "lockFileMaintenance": {
+    "enabled": false
+  }
+}
